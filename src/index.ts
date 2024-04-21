@@ -1,6 +1,7 @@
 require("dotenv").config();
 import express, { Express } from "express";
 import bodyParser from "body-parser";
+import { routes } from "./routes";
 import { CreateServer } from "./server";
 
 export const app: Express = express();
@@ -10,6 +11,7 @@ CreateServer(app, Number(Port))
     .then(() => {
         app.use(express.json());
         app.use(bodyParser.json());
+        routes(app);
     })
     .catch((error: unknown) => {
         console.error(`An error occurred ${error}`);
