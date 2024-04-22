@@ -1,0 +1,345 @@
+openapi: 3.0.0
+info:
+    title: Travel Itinerary API
+    version: 1.0.0
+    description: Travel Itinerary API
+paths:
+    # CreateItinerary
+    /api/itinerary:
+        post:
+            tags:
+                - Itinerary
+            summary: "Create itinerary"
+            description: "Create a new itinerary"
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/CreateItinerary"
+            responses:
+                200:
+                    description: "Created Successfully!"
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/CreateItineraryResponse"
+                400:
+                    description: Bad request
+
+    # FindItinerary
+    /api/itinerary/{id}:
+        get:
+            tags:
+                - Itinerary
+            summary: "Find Itinerary"
+            description: "Find an existing Itinerary"
+            parameters:
+                - in: path
+                  name: "id"
+                  required: true
+                  schema:
+                      type: string
+                      default: "661e8e063d82b82fc7dc7b42"
+                  description: "Enter an Itinerary id"
+            responses:
+                200:
+                    description: Found Successfully!
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/FindItineraryResponse"
+                400:
+                    description: Bad request
+
+    # AddStop
+    /api/itinerary/{id}/stops:
+        post:
+            tags:
+                - Itinerary
+            summary: "Add Stop"
+            description: "Add Stop to an Itinerary"
+            parameters:
+                - in: path
+                  name: "id"
+                  required: true
+                  schema:
+                      type: string
+                      default: "661e8e063d82b82fc7dc7b42"
+                  description: "Enter an Itinerary id"
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            $ref: "#/components/schemas/AddItineraryStop"
+            responses:
+                200:
+                    description: "Updated Successfully!"
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/AddItineraryStopResponse"
+                400:
+                    description: Bad request
+
+    # RemoveStop
+    /api/itinerary/{id}/stops/{stopId}:
+        delete:
+            tags:
+                - Itinerary
+            summary: "Remove Stop"
+            description: "Remove Stop from an Itinerary"
+            parameters:
+                - in: path
+                  name: "id"
+                  required: true
+                  schema:
+                      type: string
+                      default: "661e8e063d82b82fc7dc7b42"
+                  description: "Enter an Itinerary id"
+                - in: path
+                  name: "stopId"
+                  required: true
+                  schema:
+                      type: string
+                      default: "76175479-2426-4878-8151-b53972b9f6f6"
+                  description: "Enter a Stop id"
+            responses:
+                200:
+                    description: "Removed Successfully!"
+                    content:
+                        application/json:
+                            schema:
+                                $ref: "#/components/schemas/RemoveItineraryStopResponse"
+                400:
+                    description: Bad request
+
+components:
+    schemas:
+        CreateItinerary:
+            type: object
+            required:
+                - itineraryName
+            properties:
+                itineraryName:
+                    type: string
+                    example: "Trip to Europe"
+                itineraryStop:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            stopName:
+                                type: string
+                                example: "Berlin"
+                            geolocation:
+                                required:
+                                    - "latitude"
+                                    - "longitude"
+                                properties:
+                                    latitude:
+                                        type: number
+                                        example: 52.520008
+                                    longitude:
+                                        type: number
+                                        example: 13.404954
+
+        CreateItineraryResponse:
+            type: object
+            properties:
+                successful:
+                    type: boolean
+                Message:
+                    type: string
+                result:
+                    type: object
+                    properties:
+                        _id:
+                            type: string
+                            example: "661e8e063d82b82fc7dc7b42"
+                        itineraryName:
+                            type: string
+                            example: "Trip to Europe"
+                        routedata:
+                            type: object
+                            example: "Object with all google map routedata"
+                        totalDistanceKm:
+                            type: number
+                            example: 492
+                        itineraryStop:
+                            type: array
+                            items:
+                                type: object
+                                properties:
+                                    stopName:
+                                        type: string
+                                        example: "Berlin"
+                                    geolocation:
+                                        properties:
+                                            latitude:
+                                                type: number
+                                                example: 52.520008
+                                            longitude:
+                                                type: number
+                                                example: 13.404954
+                                        type: object
+                                    stopId:
+                                        type: string
+                                        example: "8d4825c5-6991-4398-9ead-91685f3767ce"
+
+        FindItineraryResponse:
+            properties:
+                successful:
+                    type: boolean
+                    example: true
+                Message:
+                    type: string
+                    example: "Found Successfully!"
+                result:
+                    type: object
+                    properties:
+                        _id:
+                            type: string
+                            example: "661e8e063d82b82fc7dc7b42"
+                        itineraryName:
+                            type: string
+                            example: "Trip to Europe"
+                        routedata:
+                            type: object
+                            example: "Object with all google map routedata"
+                        totalDistanceKm:
+                            type: number
+                            example: 492
+                        itineraryStop:
+                            type: array
+                            items:
+                                type: object
+                                properties:
+                                    stopName:
+                                        type: string
+                                        example: "Berlin"
+                                    geolocation:
+                                        properties:
+                                            latitude:
+                                                type: number
+                                                example: 52.520008
+                                            longitude:
+                                                type: number
+                                                example: 13.404954
+                                        type: object
+                                    stopId:
+                                        type: string
+                                        example: "8d4825c5-6991-4398-9ead-91685f3767ce"
+
+        AddItineraryStop:
+            type: object
+            required:
+                - "itineraryStop"
+            properties:
+                itineraryStop:
+                    type: array
+                    items:
+                        type: object
+                        properties:
+                            stopName:
+                                type: string
+                                example: "Hamburg"
+                            geolocation:
+                                type: object
+                                required:
+                                    - "latitude"
+                                    - "longitude"
+                                properties:
+                                    latitude:
+                                        type: number
+                                        example: 53.551086
+                                    longitude:
+                                        type: number
+                                        example: 9.993682
+
+        AddItineraryStopResponse:
+            type: object
+            properties:
+                successful:
+                    type: boolean
+                Message:
+                    type: string
+                newItineraryData:
+                    type: object
+                    properties:
+                        _id:
+                            type: string
+                            example: "661e8e063d82b82fc7dc7b42"
+                        itineraryName:
+                            type: string
+                            example: "Trip to Europe"
+                        routedata:
+                            type: object
+                            example: "Object with all google map routedata"
+                        totalDistanceKm:
+                            type: number
+                            example: 492
+                        itineraryStop:
+                            type: array
+                            items:
+                                type: object
+                                properties:
+                                    stopName:
+                                        type: string
+                                        example: "Berlin"
+                                    geolocation:
+                                        properties:
+                                            latitude:
+                                                type: number
+                                                example: 52.520008
+                                            longitude:
+                                                type: number
+                                                example: 13.404954
+                                        type: object
+                                    stopId:
+                                        type: string
+                                        example: "8d4825c5-6991-4398-9ead-91685f3767ce"
+
+        RemoveItineraryStopResponse:
+            type: object
+            properties:
+                successful:
+                    type: boolean
+                Message:
+                    type: string
+                newItineraryData:
+                    type: object
+                    properties:
+                        _id:
+                            type: string
+                            example: "661e8e063d82b82fc7dc7b42"
+                        itineraryName:
+                            type: string
+                            example: "Trip to Europe"
+                        routedata:
+                            type: object
+                            example: "Object with all google map routedata"
+                        totalDistanceKm:
+                            type: number
+                            example: 492
+                        itineraryStop:
+                            type: array
+                            items:
+                                type: object
+                                properties:
+                                    stopName:
+                                        type: string
+                                        example: "Berlin"
+                                    geolocation:
+                                        properties:
+                                            latitude:
+                                                type: number
+                                                example: 52.520008
+                                            longitude:
+                                                type: number
+                                                example: 13.404954
+                                        type: object
+                                    stopId:
+                                        type: string
+                                        example: "8d4825c5-6991-4398-9ead-91685f3767ce"
