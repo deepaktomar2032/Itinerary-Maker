@@ -29,7 +29,7 @@ describe("POST /api/itinerary/:id/stops", () => {
     });
 
     it("Responds with 200 OK on POST /api/itinerary/:id/stops, should add that stop in Itinerary", async () => {
-        const id: string = "6625692d99de0821db5b0273"; // ID that exists in DB
+        const id: string = "6625b8dc5e00a40c963271a4"; // ID that exists in DB
         const body = {
             itineraryStop: [{ stopName: "Hamburg", geolocation: { latitude: 53.55, longitude: 10 } }],
         };
@@ -38,7 +38,7 @@ describe("POST /api/itinerary/:id/stops", () => {
     });
 
     it("Responds with 200 OK on POST /api/itinerary/:id/stops, should add that stop in Itinerary", async () => {
-        const id: string = "6625692d99de0821db5b0273"; // ID that exists in DB
+        const id: string = "6625b8dc5e00a40c963271a4"; // ID that exists in DB
         const body = {
             itineraryStop: [{ stopName: "Berlin", geolocation: { latitude: 52.52, longitude: 13.405 } }],
         };

@@ -4,4 +4,5 @@ export const message = {
     Itinerary_not_found: "Itinerary Not found",
     Found_successfully: "Found Successfully!",
     Updated_successfully: "Updated Successfully!",
+    Removed_successfully: "Removed Successfully!",
 };
