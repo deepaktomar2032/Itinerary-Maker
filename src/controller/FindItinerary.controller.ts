@@ -2,13 +2,13 @@ import { Request, Response } from "express";
 import { message } from "../utils/locale";
 import { statusCode } from "./../utils/statusCode";
 import { LogErrorMessage } from "./../utils/error-handler";
-import { ItineraryModel } from "../model/itinerary.model";
+import { FetchItineraryData } from "./Functions";
 
 export const FindItinerary = async (req: Request, res: Response) => {
     const id: string = req.params.id;
 
     try {
-        const result = await ItineraryModel.findById(id);
+        const result = await FetchItineraryData(id);
         if (!result) {
             return res.status(statusCode.not_found).send({ successful: false, Message: message.Itinerary_not_found });
         }

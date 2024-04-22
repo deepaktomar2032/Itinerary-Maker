@@ -12,3 +12,7 @@ export const CreateItineraryValidation = Joi.object({
     itineraryName: Joi.string().required(),
     itineraryStop: Joi.array().items(itineraryStopSchema),
 });
+
+export const AddStopValidation = Joi.object({
+    itineraryStop: Joi.array().required().items(itineraryStopSchema.required()),
+});
