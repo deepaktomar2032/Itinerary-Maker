@@ -8,7 +8,7 @@
 # Run Project locally
 - clone the project
 - create .env file at the root of the project & set given variables
-- npm run install
+- npm install
 - npm run dev
     - It will run the server on port 8080 & api's available to consume
     - POST - http://localhost:8000/api/itinerary
@@ -21,7 +21,7 @@
 - npm run build
 
 # Run Unit Tests
-- npm run test
+- npm test
 
 # Application Architecture
 - MVC arch. is used to develop this application
