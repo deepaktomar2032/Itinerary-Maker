@@ -3,6 +3,7 @@ import express, { Express } from "express";
 import bodyParser from "body-parser";
 import { routes } from "./routes";
 import { CreateServer } from "./server";
+import { LogErrorMessage } from "./utils/error-handler";
 
 export const app: Express = express();
 export const Port = process.env.Port || 8000;
@@ -14,5 +15,5 @@ CreateServer(app, Number(Port))
         routes(app);
     })
     .catch((error: unknown) => {
-        console.error(`An error occurred ${error}`);
+        console.error(`An error occurred ${LogErrorMessage(error)}`);
     });
