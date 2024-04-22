@@ -25,12 +25,20 @@
 
 # Application Architecture
 - MVC arch. is used to develop this application
-    - index.ts - entry point of the project, server.ts helps to create the server & connect to DB
-    - routes.ts - has 4 routes depending on the request
-    - controller/ - has 4 controllers to make calculation & serve the reqest, Functions.ts is has commonly used fucntions
-    - validation/ - has a validator to validate the body of incoming request
-    - model/ - has model to intract with DB (MongoDB)
-    - utils/ - has common functionality to be used through out the project (messages & statusCodes)
+    - docs/
+        - diagram/
+            - has project flow diagram
+        - Swagger/
+            - Swagger API documentation
+    - src/
+        - index.ts - entry point of the project, server.ts helps to create the server & connect to DB
+        - routes.ts - has 4 routes depending on the request
+        - controller/ - has 4 controllers to make calculation & serve the reqest, Functions.ts is has commonly used fucntions
+        - validation/ - has a validator to validate the body of incoming request
+        - model/ - has model to intract with DB (MongoDB)
+        - utils/ - has common functionality to be used through out the project (messages & statusCodes)
+    - test/
+        - Unit tests to test the project
 
 # The URL to the deployed application
 - Application is deployed on https://render.com/
