@@ -1,6 +1,6 @@
 require("dotenv").config();
 import mongoose from "mongoose";
-import { LogErrorMessage } from "./..//src/utils/error-handler";
+import { LogErrorMessage } from "./../src/utils/error-handler";
 
 export const ConnectDB = async () => {
     try {
