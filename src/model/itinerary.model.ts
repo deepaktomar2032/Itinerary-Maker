@@ -1,4 +1,3 @@
-require("dotenv").config();
 import mongoose, { Schema } from "mongoose";
 
 const ItinerarySchema = new mongoose.Schema(
