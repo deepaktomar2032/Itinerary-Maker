@@ -43,9 +43,9 @@
 # The URL to the deployed application
 - Application is deployed on https://render.com/
 
-- BASE URL - https://itinerary-maker.onrender.com
-    - POST - https://itinerary-maker.onrender.com/api/itinerary
-    - GET - https://itinerary-maker.onrender.com/api/itinerary/:id
-    - POST - https://itinerary-maker.onrender.com/api/itinerary/:id/stops
-    - DELETE - https://itinerary-maker.onrender.com/api/itinerary/:id/stops/:stopId
-    - SWAGGER DOC - https://itinerary-maker.onrender.com/api-docs
+- BASE URL - https://itinerary-maker-v7lq.onrender.com
+    - POST - https://itinerary-maker-v7lq.onrender.com/api/itinerary
+    - GET - https://itinerary-maker-v7lq.onrender.com/api/itinerary/:id
+    - POST - https://itinerary-maker-v7lq.onrender.com/api/itinerary/:id/stops
+    - DELETE - https://itinerary-maker-v7lq.onrender.com/api/itinerary/:id/stops/:stopId
+    - SWAGGER DOC - https://itinerary-maker-v7lq.onrender.com/api-docs
