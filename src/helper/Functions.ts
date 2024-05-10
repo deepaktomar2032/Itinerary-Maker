@@ -6,32 +6,23 @@ import { IRouteResponse } from "../Interface/IRouteResponse";
 import { ItineraryInterface } from "../Interface/ItineraryInterface";
 import { ItineraryModel } from "../model/itinerary.model";
 import { LogErrorMessage } from "../utils/error-handler";
+import { Base_URL } from "../constant/constants";
+import { RouteUrlBuilder } from "./RouteUrlBuilder";
 
 const apiKey = process.env.API_KEY;
-const Base_URL = `https://maps.googleapis.com/maps/api/directions/json?`;
 
 export const CalculateRoute = async (itineraryStop: IStop[]): Promise<IRouteResponse> => {
     // Atleast 2 stops should be there to calculate the route
     if (itineraryStop.length < 2) return { routeData: {}, totalDistanceKm: 0 };
 
-    const originlatitude = itineraryStop[0].geolocation.latitude;
-    const originlongitude = itineraryStop[0].geolocation.longitude;
-
-    const destinationlatitude = itineraryStop[itineraryStop.length - 1].geolocation.latitude;
-    const destinationlongitude = itineraryStop[itineraryStop.length - 1].geolocation.longitude;
-
-    let wayPoints = "";
-    // excluding source & destination (first & last)
-    for (let index = 1; index < itineraryStop.length - 1; ++index) {
-        wayPoints += `${itineraryStop[index].geolocation.latitude},${itineraryStop[index].geolocation.longitude}`;
-        if (index != itineraryStop.length - 2) wayPoints += `|`;
-    }
-
-    const midURL = `origin=${originlatitude},${originlongitude}&destination=${destinationlatitude},${destinationlongitude}&waypoints=${wayPoints}`;
-    const apiUrl = `${Base_URL}${midURL}&key=${apiKey}`;
+    const apiUrl = new RouteUrlBuilder(Base_URL);
+    apiUrl.addOrigin(itineraryStop);
+    apiUrl.addDestination(itineraryStop);
+    apiUrl.addWayPoint(itineraryStop);
+    apiUrl.addApiKey(apiKey!.toString());
 
     try {
-        const route = await fetch(apiUrl);
+        const route = await fetch(apiUrl.build());
         const routeData = await route.json();
 
         let totalDistanceM: number = 0;
