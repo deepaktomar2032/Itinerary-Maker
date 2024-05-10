@@ -1,12 +1,13 @@
 {
     "name": "itinerary-maker",
-    "version": "1.1.7",
+    "version": "1.1.8",
     "description": "",
     "main": "index.js",
     "scripts": {
         "clean": "rm -rf build",
         "copy:yml": "cp ./docs/Swagger/swagger.yml ./build/docs/Swagger",
         "build": "npm run clean && tsc && npm run copy:yml",
+        "start": "npm run build && node build/src/index.js",
         "test": "NODE_ENV=test jest",
         "dev": "tsx watch src/index.ts"
     },
