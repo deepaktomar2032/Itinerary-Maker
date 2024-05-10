@@ -1,14 +1,16 @@
 require("dotenv").config();
 import { v4 as uuidv4 } from "uuid";
 import { message } from "../utils/locale";
-import { ItineraryStopInterface, RouteResponseInterface, ItineraryInterface } from "./Interface";
+import { IStop } from "../Interface/IStop";
+import { IRouteResponse } from "../Interface/IRouteResponse";
+import { ItineraryInterface } from "../Interface/ItineraryInterface";
 import { ItineraryModel } from "../model/itinerary.model";
-import { LogErrorMessage } from "./../utils/error-handler";
+import { LogErrorMessage } from "../utils/error-handler";
 
 const apiKey = process.env.API_KEY;
 const Base_URL = `https://maps.googleapis.com/maps/api/directions/json?`;
 
-export const CalculateRoute = async (itineraryStop: ItineraryStopInterface[]): Promise<RouteResponseInterface> => {
+export const CalculateRoute = async (itineraryStop: IStop[]): Promise<IRouteResponse> => {
     // Atleast 2 stops should be there to calculate the route
     if (itineraryStop.length < 2) return { routeData: {}, totalDistanceKm: 0 };
 
@@ -49,8 +51,8 @@ export const calculateDistanceInKm = (totalDistance: number): number => {
     return totalDistance / 1000;
 };
 
-export const AddStopId = (itineraryStopArray: ItineraryStopInterface[]): ItineraryStopInterface[] => {
-    itineraryStopArray.forEach((element: ItineraryStopInterface) => {
+export const AddStopId = (itineraryStopArray: IStop[]): IStop[] => {
+    itineraryStopArray.forEach((element: IStop) => {
         element.stopId = uuidv4();
     });
     return itineraryStopArray;

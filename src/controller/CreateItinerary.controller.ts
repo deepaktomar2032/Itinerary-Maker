@@ -1,20 +1,13 @@
 import { Request, Response } from "express";
-import { CreateItineraryValidation } from "../validation/itinerary.validation";
 import { message } from "../utils/locale";
 import { ItineraryModel } from "../model/itinerary.model";
-import { CalculateRoute, AddStopId } from "./Functions";
+import { CalculateRoute, AddStopId } from "../helper/Functions";
 import { statusCode } from "./../utils/statusCode";
 import { LogErrorMessage } from "./../utils/error-handler";
 
 export const CreateItinerary = async (req: Request, res: Response) => {
     let { itineraryName, itineraryStop } = req.body;
     itineraryStop = itineraryStop !== undefined ? itineraryStop : [];
-
-    const { error } = CreateItineraryValidation.validate({ itineraryName: itineraryName, itineraryStop: itineraryStop });
-
-    if (error) {
-        return res.status(statusCode.bad_request).send({ successful: false, error_message: error.message });
-    }
 
     // Set stopId to all stops
     itineraryStop = AddStopId(itineraryStop);

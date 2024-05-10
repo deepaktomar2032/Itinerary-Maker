@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { message } from "../utils/locale";
 import { statusCode } from "./../utils/statusCode";
 import { LogErrorMessage } from "./../utils/error-handler";
-import { FetchItineraryData } from "./Functions";
+import { FetchItineraryData } from "../helper/Functions";
 
 export const FindItinerary = async (req: Request, res: Response) => {
     const id: string = req.params.id;

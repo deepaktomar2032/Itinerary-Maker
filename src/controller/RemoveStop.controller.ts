@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { message } from "../utils/locale";
-import { FetchItineraryData, CalculateRoute } from "./Functions";
+import { FetchItineraryData, CalculateRoute } from "../helper/Functions";
 import { ItineraryModel } from "../model/itinerary.model";
 import { statusCode } from "./../utils/statusCode";
 import { LogErrorMessage } from "./../utils/error-handler";
-import { ItineraryInterface } from "./Interface";
+import { ItineraryInterface } from "../Interface/ItineraryInterface";
 
 export const RemoveStop = async (req: Request, res: Response) => {
     const { id, stopId } = req.params;
