@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { ItineraryModel } from "../model/itinerary.model";
 import { message } from "../utils/locale";
-import { FetchItineraryData, CalculateRoute, AddStopId } from "../helper/Functions";
+import { FetchItineraryData, CreateRouteURL, CalculateRoute, AddStopId } from "../helper/Functions";
 import { statusCode } from "./../utils/statusCode";
 import { LogErrorMessage } from "./../utils/error-handler";
 
@@ -19,7 +19,8 @@ export const AddStop = async (req: Request, res: Response) => {
         }
         const updatedItineraryStop = [...itineraryData.itineraryStop, ...itineraryStop];
 
-        const { routeData, totalDistanceKm } = await CalculateRoute(updatedItineraryStop);
+        const routeURL = CreateRouteURL(updatedItineraryStop) as string;
+        const { routeData, totalDistanceKm } = await CalculateRoute(routeURL);
 
         const updateData = {
             itineraryStop: updatedItineraryStop,

@@ -10,19 +10,22 @@ import { Base_URL } from "../constant/constants";
 import { RouteUrlBuilder } from "./RouteUrlBuilder";
 
 const apiKey = process.env.API_KEY;
-
-export const CalculateRoute = async (itineraryStop: IStop[]): Promise<IRouteResponse> => {
-    // Atleast 2 stops should be there to calculate the route
-    if (itineraryStop.length < 2) return { routeData: {}, totalDistanceKm: 0 };
-
+export const CreateRouteURL = (itineraryStop: IStop[]): string => {
+    if (itineraryStop.length < 2) return Base_URL;
     const apiUrl = new RouteUrlBuilder(Base_URL);
     apiUrl.addOrigin(itineraryStop);
     apiUrl.addDestination(itineraryStop);
     apiUrl.addWayPoint(itineraryStop);
     apiUrl.addApiKey(apiKey!.toString());
+    return apiUrl.build();
+};
+
+export const CalculateRoute = async (apiUrl: string): Promise<IRouteResponse> => {
+    // Atleast 2 stops should be there to calculate the route
+    if (apiUrl === Base_URL) return { routeData: {}, totalDistanceKm: 0 };
 
     try {
-        const route = await fetch(apiUrl.build());
+        const route = await fetch(apiUrl);
         const routeData = await route.json();
 
         let totalDistanceM: number = 0;

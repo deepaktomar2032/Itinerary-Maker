@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { message } from "../utils/locale";
-import { FetchItineraryData, CalculateRoute } from "../helper/Functions";
+import { FetchItineraryData, CreateRouteURL, CalculateRoute } from "../helper/Functions";
 import { ItineraryModel } from "../model/itinerary.model";
 import { statusCode } from "./../utils/statusCode";
 import { LogErrorMessage } from "./../utils/error-handler";
@@ -20,7 +20,8 @@ export const RemoveStop = async (req: Request, res: Response) => {
                 itineraryData.itineraryStop.splice(index, 1);
             }
         });
-        const { routeData, totalDistanceKm } = await CalculateRoute(itineraryData.itineraryStop);
+        const routeURL = CreateRouteURL(itineraryData.itineraryStop) as string;
+        const { routeData, totalDistanceKm } = await CalculateRoute(routeURL);
 
         const updateData = {
             itineraryStop: itineraryData.itineraryStop,
